@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<array>
+		<dict>
+			<key>icon</key>
+			<string>favorite</string>
+			<key>title</key>
+			<string>收藏</string>
+			<key>type</key>
+			<string>more</string>
+		</dict>
+		<dict>
+			<key>icon</key>
+			<string>night</string>
+			<key>title</key>
+			<string>夜间</string>
+			<key>type</key>
+			<string>switch</string>
+		</dict>
+		<dict>
+			<key>icon</key>
+			<string>clearCache</string>
+			<key>title</key>
+			<string>清除缓存</string>
+			<key>type</key>
+			<string>label</string>
+		</dict>
+	</array>
+	<array>
+		<dict>
+			<key>icon</key>
+			<string>saoyisao</string>
+			<key>title</key>
+			<string>扫一扫</string>
+			<key>type</key>
+			<string>more</string>
+		</dict>
+	</array>
+	<array>
+		<dict>
+			<key>icon</key>
+			<string>about</string>
+			<key>title</key>
+			<string>关于迅知</string>
+			<key>type</key>
+			<string>more</string>
+		</dict>
+	</array>
+</array>
+</plist>

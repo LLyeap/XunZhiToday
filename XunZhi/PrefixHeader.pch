@@ -1,0 +1,71 @@
+//
+//  PrefixHeader.pch
+//  XunZhi
+//
+//  Created by 李雷 on 16/5/15.
+//  Copyright © 2016年 cn.edu.jlnu.cst. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#import "DKNightVersion.h"
+#import "NetRequest.h"
+#import "MJRefresh.h"
+#import "XZRefreshGifHeader.h"
+#import "UIImageView+WebCache.h"
+#import "MBProgressHUD+HM.h"
+// >友盟头文件 开始
+#import "UMSocial.h"
+#import "UMSocialAccountManager.h"
+#import "UMSocialBar.h"
+#import "UMSocialConfig.h"
+#import "UMSocialControllerService.h"
+#import "UMSocialControllerServiceComment.h"
+#import "UMSocialData.h"
+#import "UMSocialDataService.h"
+#import "UMSocialSnsData.h"
+#import "UMSocialSnsPlatformManager.h"
+#import "UMSocialSnsService.h"
+//
+//#import "UMSocialAlipayShareHandler.h"
+//#import "UMSocialSinaSSOHandler.h"
+//#import "UMSocialQQHandler.h"
+#import "UMSocialWechatHandler.h"
+// >友盟头文件 结束
+
+// 项目打包上线都不会打印日志，因此可放心。
+#ifdef DEBUG
+#define XZLog(s, ... ) NSLog( @"[%@ in line %d] =====>%@", [[NSString stringWithUTF8String:__FILE__] lastPathComponent], __LINE__, [NSString stringWithFormat:(s), ##__VA_ARGS__] )
+#else
+#define XZLog(s, ... )
+#endif
+
+#define SCREENWIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREENHEIGHT [UIScreen mainScreen].bounds.size.height
+#define NAVIBARHEIGHT 64.0f
+#define TABBARHEIGHT 49.0f
+/** 新闻标题的font */
+#define titleFont [UIFont systemFontOfSize:16.0f]
+
+#endif /* PrefixHeader_pch */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
