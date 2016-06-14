@@ -17,9 +17,8 @@
 
 /** 设置子页面时需要的XZVideoTVModel类型的模型数据 */
 @property (nonatomic, retain) XZVideoTVModel *videoTVModel;
-/**  */
-@property (nonatomic, retain) AVPlayerItem *playerItem;
-/**  */
-@property (nonatomic, assign) CMTime currentTime;
+
+/** 子页面点击跳入下一页后播放的内容 */
+@property (nonatomic, retain) XZVideoTVModel *selectVideoTVModel;
 
 @end

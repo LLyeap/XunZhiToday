@@ -132,7 +132,11 @@
     if (_playerController.player.currentItem && _index == indexPath.row + 1) {
         isNeed = true;
     }
-    [self.delegate pushVCFromVideoVCWithVideoTVModel:videoTVModel isNeed:isNeed Player:_playerController.player];
+    // >设置视频单例
+    XZVideoSingleton *videoSingleton = [XZVideoSingleton defaultVideoSingleton];
+    videoSingleton.player = _playerController.player;
+    
+    [self.delegate pushVCFromVideoVCWithVideoTVModel:videoTVModel];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return VideoPlayerHeight;
@@ -187,6 +191,9 @@
         [_playerController.view removeFromSuperview];
         // _playerController.player 置空
         _playerController.player = nil;
+        // >同步设置视频单例
+        XZVideoSingleton *videoSingleton = [XZVideoSingleton defaultVideoSingleton];
+        videoSingleton.player = _playerController.player;
     }
     XZVideoTVModel *videoTVModel = [_mArrTableView_net objectAtIndex:tapPlay.view.tag - 1];
     
@@ -195,10 +202,6 @@
         self.playerController = [[AVPlayerViewController alloc] init];
         _playerController.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     }
-//    // >获得视频单例
-//    XZVideoSingleton *videoSingleton = [XZVideoSingleton defaultVideoSingleton];
-//    videoSingleton.playerController = _playerController;
-    
     
     _playerController.showsPlaybackControls = YES;
     _playerController.player = [AVPlayer playerWithURL:[NSURL URLWithString:videoTVModel.mp4_url]];
@@ -241,6 +244,10 @@
         if (_index*(VideoPlayerHeight) < y || (_index>3 && y<0 + (_index - 4)*(VideoPlayerHeight))) {
             [_playerController.player.currentItem removeObserver:self forKeyPath:@"status" context:nil];
             _playerController.player = nil;
+            // >同步设置视频单例
+            XZVideoSingleton *videoSingleton = [XZVideoSingleton defaultVideoSingleton];
+            videoSingleton.player = _playerController.player;
+            
             [_playerController.view removeFromSuperview];
         }
     }
@@ -249,6 +256,10 @@
 - (void)playEnd:(id)sender {
     [_playerController.player.currentItem removeObserver:self forKeyPath:@"status" context:nil];
     _playerController.player = nil;
+    // >同步设置视频单例
+    XZVideoSingleton *videoSingleton = [XZVideoSingleton defaultVideoSingleton];
+    videoSingleton.player = _playerController.player;
+    
     [_playerController.view removeFromSuperview];
     _playerController.showsPlaybackControls = NO;
 }

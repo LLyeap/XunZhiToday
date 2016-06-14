@@ -19,10 +19,8 @@
  *  代理方法, 当CVC里的tableView的点击事件点击时, 使其代理(XZVideoVC)推出子页面
  *
  *  @param videoTVModel 需要传入子页面的videoTVModel
- *  @param isNeed       判断是否需要传player(主页面视频已播放时需要)
- *  @param player       主页面视频播放的player(要这个player的一些值)
  */
-- (void)pushVCFromVideoVCWithVideoTVModel:(XZVideoTVModel *)videoTVModel isNeed:(BOOL)isNeed Player:(AVPlayer *)player;
+- (void)pushVCFromVideoVCWithVideoTVModel:(XZVideoTVModel *)videoTVModel;
 
 @end
 

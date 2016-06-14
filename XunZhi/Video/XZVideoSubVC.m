@@ -71,7 +71,7 @@
         if (!videoHeader) {
             videoHeader = [[XZVideoHeader alloc] initWithReuseIdentifier:@"header"];
         }
-        [videoHeader setVideoTimeData:_videoTVModel currentTime:_currentTime];
+        videoHeader.selectVideoTVModel = _selectVideoTVModel;
         return videoHeader;
     }
     return nil;
@@ -89,15 +89,18 @@
     XZVideoTVModel *vTVModel = [_mArrTableView_net objectAtIndex:indexPath.row];
     
     XZVideoSubVC *videoSubVC = [[XZVideoSubVC alloc] init];
-    videoSubVC.videoTVModel = vTVModel;
+    videoSubVC.selectVideoTVModel = vTVModel;
     [self.navigationController pushViewController:videoSubVC animated:YES];
+    
+    _playerController.player = nil;
 }
 
 
 #pragma mark - 网络数据
 //  >http://c.m.163.com/nc/video/detail/VBNAFSBH9.html
 - (void)downloadData {
-    NSString *strUrl = [NSString stringWithFormat:@"http://c.m.163.com/nc/video/detail/%@.html", _videoTVModel.vid];
+    // >三目运算符判断
+    NSString *strUrl = [NSString stringWithFormat:@"http://c.m.163.com/nc/video/detail/%@.html", (nil != _selectVideoTVModel)?_selectVideoTVModel.vid:_videoTVModel.vid];
     __weak typeof(self) weakSelf = self;
     [NetRequest getDataWithURL:strUrl dic:nil success:^(id responseObject) {
         NSArray *mainDataArr = [responseObject objectForKey:@"recommend"];

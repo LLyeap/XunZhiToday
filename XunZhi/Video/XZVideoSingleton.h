@@ -14,7 +14,7 @@
 @interface XZVideoSingleton : NSObject
 
 /** 视频播放控制器, 它上面有视频播放控件 */
-@property (nonatomic, retain) AVPlayerViewController *playerController;
+@property (nonatomic, retain) AVPlayer *player;
 
 + (XZVideoSingleton *)defaultVideoSingleton;
 

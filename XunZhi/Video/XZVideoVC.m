@@ -100,13 +100,9 @@
     [_naviV scrollWithTag:scrollView.contentOffset.x/_collectionView.frame.size.width + 1];
 }
 #pragma mark - XZVideoCVCellDelegate
-- (void)pushVCFromVideoVCWithVideoTVModel:(XZVideoTVModel *)videoTVModel isNeed:(BOOL)isNeed Player:(AVPlayer *)player {
+- (void)pushVCFromVideoVCWithVideoTVModel:(XZVideoTVModel *)videoTVModel {
     XZVideoSubVC *videoSubVC = [[XZVideoSubVC alloc] init];
     videoSubVC.videoTVModel = videoTVModel;
-    if (isNeed) {
-        [videoSubVC setValue:player.currentItem forKey:@"playerItem"];
-        [videoSubVC setValue:[NSValue valueWithCMTime:player.currentTime] forKey:@"currentTime"];
-    }
     [self.navigationController pushViewController:videoSubVC animated:YES];
 }
 
