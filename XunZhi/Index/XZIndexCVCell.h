@@ -33,11 +33,14 @@
 
 @interface XZIndexCVCell : UICollectionViewCell
 
-/** XZIndexVC中决定CVCell上tablev类型的属性 */
-@property (nonatomic, assign) UITableViewStyle tableViewStyle;
+/** 这里为了使用3D Touch的peek&pop, 所以将tableView和mArrTableView_net暴露在.h文件中 */
+@property (nonatomic, retain) UITableView *tableView;
+/** 网络数据, 元素是XZIndexTVModel类型, 用于显示在tableView上 */
+@property (nonatomic, retain) NSMutableArray *mArrTableView_net;
 /** XZIndexCVCellDelegate代理属性 */
 @property (nonatomic, weak) id<XZIndexCVCellDelegate>delegate;
-
+/** target作为中间桥梁, 将XZIndexVC设置成为UIViewControllerPreviewingDelegate的代理 */
+@property (nonatomic, assign) id target;
 /**
  *  当XZIndexVC操作CVCell滑动时, 对滑动后的CVCell上的tableView数据进行刷新
  *

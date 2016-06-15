@@ -17,7 +17,7 @@
 
 #define naviHeight 44.0f
 
-@interface XZIndexVC () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, XZIndexCVCellDelegate, UMSocialUIDelegate>
+@interface XZIndexVC () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, XZIndexCVCellDelegate, UMSocialUIDelegate, UIViewControllerPreviewingDelegate>
 
 /** 自定义的导航条目, 放在NaviBar的titleView上 */
 @property (nonatomic, retain) XZNaviV *naviV;
@@ -25,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 /** 网络数据, 元素是XZIndexNaviModel类型, 用于创建XZNaviV */
 @property (nonatomic, retain) NSMutableArray *mArrNavi_net;
+/** 为了通过它来获得它上面的tableView */
+@property (nonatomic, retain) XZIndexCVCell *currentCell;
 
 @end
 
@@ -89,11 +91,13 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     XZIndexCVCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CVCellID" forIndexPath:indexPath];
     
-    cell.tableViewStyle = UITableViewStylePlain;
     XZIndexNaviModel *indexNaviModel = _mArrNavi_net[indexPath.item];
     [cell refreshTableViewByDownloadDataWithCategory:indexNaviModel.category];
     cell.delegate = self;
+    cell.target = self;
     
+    // >将当前XZIndexCVCell设置为_currentCell, 以便3D Touch等获得必要的数据
+    _currentCell = cell;
     return cell;
 }
 #pragma mark - UICollectionViewDelegate
@@ -104,7 +108,13 @@
 
 #pragma mark - UICollectionView继承UIScrollView, 以下是UIScrollView的代理方法
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    [_naviV scrollWithTag:scrollView.contentOffset.x/_collectionView.frame.size.width + 1];
+    CGFloat offset = scrollView.contentOffset.x/_collectionView.frame.size.width;
+    // >设置导航条的变化
+    [_naviV scrollWithTag:offset + 1];
+    
+//    // >为了获得当前的XZIndexCVCell上的tableView
+//    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:offset inSection:0];
+//    _currentCell = (XZIndexCVCell *)[_collectionView cellForItemAtIndexPath:indexPath];
 }
 #pragma mark - XZIndexCVCellDelegate
 - (void)pushVCFromIndexVCWithWebViewStrUrl:(NSString *)webViewStrUrl {
@@ -152,7 +162,28 @@
         XZLog(@"share to sns name is %@",[[response.data allKeys] objectAtIndex:0]);
     }
 }
-
+#pragma mark - UIViewControllerPreviewingDelegate
+- (nullable UIViewController *)previewingContext:(id <UIViewControllerPreviewing>)previewingContext viewControllerForLocation:(CGPoint)location {
+    XZIndexSubVC *indexSubVC = [[XZIndexSubVC alloc] init];
+    // >转化坐标
+    location = [_currentCell.tableView convertPoint:location fromView:[previewingContext sourceView]];
+    // >根据locaton获取位置
+    NSIndexPath *indexPath = [_currentCell.tableView indexPathForRowAtPoint:location];
+    
+    //    XZLog(@"_currentCell.tableView%@, %ld", _currentCell.tableView, (long)indexPath.row);
+    // >取得对应位置的数据, 这地方需要用到模型, 控制器接触到更多数据, 有瑕疵!!!
+    XZIndexTVModel *indexTVModel = (XZIndexTVModel *)[_currentCell.mArrTableView_net objectAtIndex:indexPath.row];
+    
+    // >根据位置获取图片网址数据传入控制器
+    indexSubVC.webViewStrUrl = indexTVModel.share_url;
+    
+    return indexSubVC;
+}
+- (void)previewingContext:(id <UIViewControllerPreviewing>)previewingContext commitViewController:(UIViewController *)viewControllerToCommit {
+    
+    viewControllerToCommit.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:viewControllerToCommit animated:YES];
+}
 
 
 

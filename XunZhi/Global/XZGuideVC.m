@@ -81,9 +81,9 @@
 #pragma mark - 跳过广告按钮, 进入主界面
 - (void)btnPassAction:(UIButton *)btnPass {
     UIStoryboard *story = [UIStoryboard storyboardWithName:@"XZMain" bundle:[NSBundle mainBundle]];
-    //由storyboard根据myView的storyBoardID来获取我们要切换的视图
-    UITabBarController *tabVC = [story instantiateViewControllerWithIdentifier:@"XZMain"];
-    [self presentViewController:tabVC animated:YES completion:^{
+    // >由storyboard根据myView的storyBoardID来获取我们要切换的视图
+    UITabBarController *tabBarVC = [story instantiateViewControllerWithIdentifier:@"XZMain"];
+    [self presentViewController:tabBarVC animated:YES completion:^{
         
     }];
 }

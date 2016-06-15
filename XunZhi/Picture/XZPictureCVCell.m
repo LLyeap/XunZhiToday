@@ -13,8 +13,6 @@
 
 @interface XZPictureCVCell () <UITableViewDataSource, UITableViewDelegate>
 
-@property (nonatomic, retain) UITableView *tableView;
-@property (nonatomic, retain) NSMutableArray *mArrTableView_net;
 @property (nonatomic, retain) NSString *category;
 @property (nonatomic, copy) NSString *max_behot_time;
 /** 判断tableView是不是下拉刷新 */
@@ -38,7 +36,7 @@
  *  创建CVCell上的tableView
  */
 - (void)createTableView {
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height) style:_tableViewStyle];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height) style:UITableViewStylePlain];
     [self.contentView addSubview:_tableView];
     _tableView.dataSource = self;
     _tableView.delegate = self;
@@ -125,6 +123,11 @@
     }
     
     cell.pictureTVModel = pictureTVModel;
+    /**   UIForceTouchCapability 检测是否支持3D Touch */
+    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable) { // >支持3D Touch
+        //系统所有cell可实现预览（peek）
+        [self.target registerForPreviewingWithDelegate:self.target sourceView:cell]; // >注册cell
+    }
     
     cell.backgroundColor = UIColorFromRGB(0xffffff);
     cell.nightBackgroundColor = UIColorFromRGB(0x343434);

@@ -21,10 +21,13 @@
 
 @interface XZPictureCVCell : UICollectionViewCell
 
-/** XZPictureVC中决定CVCell上tablev类型的属性 */
-@property (nonatomic, assign) UITableViewStyle tableViewStyle;
+/** 这里为了使用3D Touch的peek&pop, 所以将tableView和mArrTableView_net暴露在.h文件中 */
+@property (nonatomic, retain) UITableView *tableView;
+@property (nonatomic, retain) NSMutableArray *mArrTableView_net;
 /** XZPictureCVCellDelegate代理属性 */
 @property (nonatomic, weak) id<XZPictureCVCellDelegate>delegate;
+/** target作为中间桥梁, 将XZPictureVC设置成为UIViewControllerPreviewingDelegate的代理 */
+@property (nonatomic, assign) id target;
 /**
  *  当XZPictureVC操作CVCell滑动时, 对滑动后的CVCell上的tableView数据进行刷新
  *
