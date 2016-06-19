@@ -10,7 +10,7 @@
 
 #import "XZNaviV.h"
 #import "XZPictureCVCell.h"
-#import "XZIndexNaviModel.h"
+#import "XZPictureNaviModel.h"
 #import "XZPictureSubVC.h"
 #import "XZSearchVC.h"
 #import "XZPictureTVModel.h"
@@ -33,7 +33,11 @@
 @implementation XZPictureVC
 
 - (void)viewWillAppear:(BOOL)animated {
-    
+    /** 从网络下载导航条的数据内容 */
+    if (!_mArrNavi_net) {
+        self.mArrNavi_net = [NSMutableArray array];
+        [self downloadNaviItems];
+    }
     [super viewWillAppear:YES];
 }
 
@@ -55,26 +59,11 @@
  *  创建这个控制器的导航条
  */
 - (void)createNavi {
-    /** 这里没有找到从网络下载类型的连接, 所以自己根据请求连接自己写了 */
-    self.mArrNavi_net = [NSMutableArray array];
-    XZIndexNaviModel *naviModel1 = [XZIndexNaviModel indexNaviModelWithDict:@{@"category":@"image_funny",
-                                                               @"name":@"趣图",
-                                                               @"tip_new":@0}];
-    XZIndexNaviModel *naviModel2 = [XZIndexNaviModel indexNaviModelWithDict:@{@"category":@"image_ppmm",
-                                                               @"name":@"美女",
-                                                               @"tip_new":@0}];
-//    XZIndexNaviModel *naviModel3 = [XZIndexNaviModel indexNaviModelWithDict:@{@"category":@"image_wonderful",
-//                                                               @"name":@"美图",
-//                                                               @"tip_new":@0}];
-    [_mArrNavi_net addObject:naviModel1];
-    [_mArrNavi_net addObject:naviModel2];
-//    [_mArrNavi_net addObject:naviModel3];
-    
     /** 处理Navi上显示的数据 */
     NSMutableArray *mArrNaviName = [NSMutableArray array];
     for (int i=0; i<_mArrNavi_net.count; i++) {
-        XZIndexNaviModel *naviModel = _mArrNavi_net[i];
-        [mArrNaviName addObject:naviModel.name];
+        XZPictureNaviModel *pictureNaviModel = _mArrNavi_net[i];
+        [mArrNaviName addObject:pictureNaviModel.name];
     }
     __weak typeof(self) weakSelf = self;
     /** 给当前页面(首页添加导航栏) */
@@ -104,8 +93,8 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     XZPictureCVCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"CVCellID" forIndexPath:indexPath];
     
-    XZIndexNaviModel *naviModel = _mArrNavi_net[indexPath.item];
-    [cell refreshTableViewByDownloadDataWithCategory:naviModel.category];
+    XZPictureNaviModel *pictureNaviModel = _mArrNavi_net[indexPath.item];
+    [cell refreshTableViewByDownloadDataWithCategory:pictureNaviModel.category];
     cell.delegate = self;
     cell.target = self;
     
@@ -160,7 +149,31 @@
 
 
 #pragma mark - 网络数据
-
+// >http://123.206.54.81/xzToday/Navi/xzNaviPic_json.php
+- (void)downloadNaviItems {
+    NSString *strUrl = @"http://123.206.54.81/xzToday/Navi/xzNaviPic_json.php";
+    NSDictionary *dic = @{};
+    __weak typeof(self) weakSelf = self;
+    [NetRequest postDataWithURL:strUrl dic:dic success:^(id responseObject) {
+        NSDictionary *dictDown = (NSDictionary *)responseObject;
+        NSArray *mainDataArr = [dictDown objectForKey:@"data"];
+        for (int i=0; i<mainDataArr.count; i++) {
+            NSDictionary *mainDict = mainDataArr[i];
+            XZPictureNaviModel *pictureNaviModel = [XZPictureNaviModel pictureNaviModelWithDict:mainDict];
+            [_mArrNavi_net addObject:pictureNaviModel];
+        }
+        /** 根据数据刷新页面 */
+        [weakSelf createNavi];
+        if (nil==weakSelf.collectionView.dataSource && nil==weakSelf.collectionView.delegate) {
+            weakSelf.collectionView.delegate = self;
+            weakSelf.collectionView.dataSource = self;
+        }
+        /** 重新加载collection, 与navi的点击block块中的刷新不冲突 */
+        [weakSelf.collectionView reloadData];
+    } filed:^(NSError *error) {
+        
+    }];
+}
 
 
 

@@ -32,7 +32,7 @@
 #import "UMSocialSnsService.h"
 //
 //#import "UMSocialAlipayShareHandler.h"
-//#import "UMSocialSinaSSOHandler.h"
+#import "UMSocialSinaSSOHandler.h"
 //#import "UMSocialQQHandler.h"
 #import "UMSocialWechatHandler.h"
 // >友盟头文件 结束

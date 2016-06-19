@@ -118,6 +118,7 @@
 		A428497A1CF304D700AF6197 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = A42849661CF304D700AF6197 /* UIScrollView+MJRefresh.m */; };
 		A428497B1CF304D700AF6197 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = A42849681CF304D700AF6197 /* UIView+MJExtension.m */; };
 		A4351A3C1CFC2AAA004EAC8A /* XZIndexVideoTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4351A3B1CFC2AAA004EAC8A /* XZIndexVideoTVCell.m */; };
+		A448FEF41D1621070076F3FA /* XZPictureNaviModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A448FEF31D1621070076F3FA /* XZPictureNaviModel.m */; };
 		A45CC2931D06AC9600EB0475 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = A45CC2861D06AC9600EB0475 /* TAAbstractDotView.m */; };
 		A45CC2941D06AC9600EB0475 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = A45CC2881D06AC9600EB0475 /* TAAnimatedDotView.m */; };
 		A45CC2951D06AC9600EB0475 /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = A45CC28A1D06AC9600EB0475 /* TADotView.m */; };
@@ -431,6 +432,8 @@
 		A42849681CF304D700AF6197 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
 		A4351A3A1CFC2AAA004EAC8A /* XZIndexVideoTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XZIndexVideoTVCell.h; sourceTree = "<group>"; };
 		A4351A3B1CFC2AAA004EAC8A /* XZIndexVideoTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XZIndexVideoTVCell.m; sourceTree = "<group>"; };
+		A448FEF21D1621070076F3FA /* XZPictureNaviModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XZPictureNaviModel.h; sourceTree = "<group>"; };
+		A448FEF31D1621070076F3FA /* XZPictureNaviModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XZPictureNaviModel.m; sourceTree = "<group>"; };
 		A45CC2851D06AC9600EB0475 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
 		A45CC2861D06AC9600EB0475 /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
 		A45CC2871D06AC9600EB0475 /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAnimatedDotView.h; sourceTree = "<group>"; };
@@ -1537,6 +1540,8 @@
 		CE5C6D9E1CF321F400FD0C52 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A448FEF21D1621070076F3FA /* XZPictureNaviModel.h */,
+				A448FEF31D1621070076F3FA /* XZPictureNaviModel.m */,
 				78C54AE51CF53E910050CA13 /* XZPictureTVModel.h */,
 				78C54AE61CF53E910050CA13 /* XZPictureTVModel.m */,
 			);
@@ -1621,7 +1626,6 @@
 				TargetAttributes = {
 					A40C49571CE770BB00F3256E = {
 						CreatedOnToolsVersion = 7.3;
-						DevelopmentTeam = 5532YD2QC6;
 					};
 					A40C49701CE770BC00F3256E = {
 						CreatedOnToolsVersion = 7.3;
@@ -1777,6 +1781,7 @@
 				A4F7962A1CFEEFFF00AA422E /* XZSearchVC.m in Sources */,
 				A4F703D01CF5C9BF006C4693 /* XZPictureTVCell.m in Sources */,
 				CE5C6D991CF321CE00FD0C52 /* XZVideoVC.m in Sources */,
+				A448FEF41D1621070076F3FA /* XZPictureNaviModel.m in Sources */,
 				A40C4A101CE7746F00F3256E /* MBProgressHUD+HM.m in Sources */,
 				A42224161CE98C8100C3CD80 /* UITableView+SeparatorColor.m in Sources */,
 				A4F795CE1CFEB0DA00AA422E /* FMDTDeleteCommand.m in Sources */,
@@ -1993,7 +1998,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Xu Wang (S5NG4F52FV)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2002,7 +2007,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = XunZhi/PrefixHeader.pch;
 				INFOPLIST_FILE = XunZhi/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2015,7 +2020,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.jlnu.cst.XunZhi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "2243fdb6-0e8c-464b-9517-30dfe26558d0";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -2026,7 +2031,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Xu Wang (S5NG4F52FV)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2035,7 +2040,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = XunZhi/PrefixHeader.pch;
 				INFOPLIST_FILE = XunZhi/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2048,7 +2053,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.edu.jlnu.cst.XunZhi;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "2243fdb6-0e8c-464b-9517-30dfe26558d0";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
